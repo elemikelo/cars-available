@@ -1,86 +1,59 @@
 //const mongoose = require('mongoose');
-const RentedCar = mongoose.model('RentedCar', schema);
+//const RentedCar = mongoose.model('RentedCar', schema);
 const data = require('./data')
 
-
-function seeAvailability(cars, rentedCars, inputRent) {
-  let arrayConverted = rentedCars.map(rent => { return { start: new Date(rent.start).getTime(), end: new Date(rent.end).getTime() } })
-
-  let carsAvailable = arrayConverted.map(arrayDate => {
-    dateContent(inputRent, arrayDate);
-    if (arrayConverted) cars--;
-  })
-
-  if (cars !== 0) {
-    return true;
-  }
-  else {
-    return false;
-  }
-
-  // Mongo
-  // RentedCar.find(function (err, rentedcars) {
-  //   if (err) {
-  //     console.log('Error find all:', err)
-  //   }
-  //   // ok
-  // });
-}
-
-
-function addRent(input, rentedCars) {
-
-  return rentedCars.concat(input)
-
-  // Mongo 
-  // RentedCar.create({ startDate: startDate, endDate: endDate }, function (err, saved) {
-  //   if (err) return console.log(err);
-  // })
-
-}
-
-function createRent(input, rentedCars, cars) {
-
-  if (seeAvailability(cars, rentedCars, input)) {
-    addRent(input, rentedCars);
-    return 'Car Reserved, thanks';
-  }
-  else {
-    return 'No cars available';
-  }
-  ;
-}
-
-
-function inputRentConverted(input) {
-  return { start: new Date(inputRent.start).getTime(), end: new Date(inputRent.end).getTime() }
-}
-
-
-function dateContent(data1, data2) {
-  if (data1.start < data2.start && data1.end < data2.end) {
-    return true;
-  }
-  else {
-    return false;
-  }
-}
-
 const inputRent = {
-  start: '06 / 19 / 2017 16: 00',
+  start: '06/19/2017 16:00',
   end: '06/21/2017 16:00'
 }
 
 
-console.log(createRent(inputRentConverted(inputRent), data.rentedCars, data.cars));
+function seeAvailability(n, array, input) {
+  let arrayConverted = array.map(rent => { return { start: new Date(rent.start).getTime(), end: new Date(rent.end).getTime() } })
 
+  let carsAvailable = arrayConverted.map(dateIndex => {
 
-
-function showMongo() {
-  RentedCar.find(function (err, rentedcars) {
-    if (err) {
-      console.log('Error find all:', err)
-    }
-    // ok
+    if (compareRanges(input, dateIndex)) { n-- }
   });
+
+  if (n !== 0) { return true }
+
+  else { return false, n }
 }
+
+function addRent(input, array) {
+
+  return array.concat(input)
+
+}
+
+function createRent(input, array, n) {
+
+  if (seeAvailability(n, array, input)) {
+
+    addRent(input, array);
+    return console.log('Reserved Car, thanks');
+  }
+  else {
+    return console.log('No cars available, Sorry');
+  }
+  ;
+}
+
+function inputRentConverted(input) {
+  return { start: new Date(input.start).getTime(), end: new Date(input.end).getTime() }
+}
+
+function compareRanges(rangeOne, rangeTwo) {
+
+  if (rangeOne.end > rangeTwo.start && rangeOne.start < rangeTwo.end) {
+
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+
+createRent(inputRentConverted(inputRent), data.rentedCars, data.cars)
+
