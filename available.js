@@ -1,5 +1,5 @@
 //const mongoose = require('mongoose');
-//const RentedCar = mongoose.model('RentedCar', schema);
+const RentedCar = mongoose.model('RentedCar', schema);
 const data = require('./data')
 
 
@@ -76,3 +76,11 @@ console.log(createRent(inputRentConverted(inputRent), data.rentedCars, data.cars
 
 
 
+function showMongo() {
+  RentedCar.find(function (err, rentedcars) {
+    if (err) {
+      console.log('Error find all:', err)
+    }
+    // ok
+  });
+}

@@ -2,8 +2,8 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const schema = new Schema({
-  startDate: String,
-  endDate: String
+  start: String,
+  end: String
 })
 
 
