@@ -45,7 +45,7 @@ Date cars rented: 📆 ✅
 ['06/24/2017 17:00', '06/30/2017 16:00']
 ```
 
-Input date solicited by client:
+Date requested by the client:
 ```
     START DATE            END DATE
 ['06/19/2017 16:00','06/30/2017 16:00']
