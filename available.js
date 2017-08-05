@@ -2,6 +2,11 @@ const data = require('./data');
 
 function seeAvailability(numberTotalCars, arrayCarsDates, input) {
 
+  if (arrayCarsDates.lenght === 0) {
+    console.log(`Cars Available ${numberTotalCars} 😎 `);
+    return true;
+  }
+
   let arrayConverted = arrayCarsDates.map(rent => {
     return {
       start: new Date(rent.start).getTime(),
