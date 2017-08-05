@@ -1,43 +1,45 @@
-//const mongoose = require('mongoose');
-//const RentedCar = mongoose.model('RentedCar', schema);
 const data = require('./data');
 
-function seeAvailability(n, array, input) {
-  let arrayConverted = array.map(rent => { return { start: new Date(rent.start).getTime(), end: (new Date(rent.end).getTime() + 3600000) } })
+function seeAvailability(numberTotalCars, arrayCarsDates, input) {
+
+  let arrayConverted = arrayCarsDates.map(rent => {
+    return {
+      start: new Date(rent.start).getTime(),
+      end: (new Date(rent.end).getTime() + data.preparationTime)
+    }
+  })
 
   let carsAvailable = arrayConverted.map(dateIndex => {
     if (compareRanges(input, dateIndex)) {
-      n--;
+      numberTotalCars--;
     }
   });
 
-  if (n !== 0) {
-    console.log('Cars available: ', n + (sameCarRented(arrayConverted)))
+  if (numberTotalCars !== 0) {
+
+    let n = 0;
+    let map = arrayConverted.map((date) => {
+
+      for (x in arrayConverted) {
+        if (date.end <= arrayConverted[x].start) {
+          n++;
+        }
+      }
+    });
+
+    console.log(`Cars Available ${numberTotalCars + n} 😎 `);
     return true;
   }
 
   else {
-    return false
+    return false;
   }
 }
 
-function addRent(input, array) {
+function addRent(input, arrayCarsDates) {
 
-  return array.concat(input)
+  return arrayCarsDates.concat(input)
 
-}
-
-function createRent(input, array, n) {
-
-  if (seeAvailability(n, array, input)) {
-
-    addRent(input, array);
-    return console.log('Reserved Car, thanks');
-  }
-  else {
-    return console.log('No cars available, Sorry');
-  }
-  ;
 }
 
 function inputRentConverted(input) {
@@ -55,16 +57,17 @@ function compareRanges(rangeOne, rangeTwo) {
   }
 }
 
-function sameCarRented(array) {
-  let n = 0;
-  let map = array.map((date) => {
-    for (x in array) {
-      if (date.end <= array[x].start) {
-        n++;
-      }
-    }
-  })
-  return n;
+function createRent(input, arrayCarsDates, numberTotalCars) {
+
+  if (seeAvailability(numberTotalCars, arrayCarsDates, input)) {
+
+    addRent(input, arrayCarsDates);
+
+    return console.log(`Reserved Car, thanks 🤠 `);
+  }
+  else {
+    return console.log('No cars available, Sorry');
+  }
 }
 
 

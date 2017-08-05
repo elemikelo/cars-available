@@ -25,6 +25,6 @@ module.exports = {
   inputRent: {
     start: '06/19/2017 16:00',
     end: '06/30/2017 16:00'
-  }
-
+  },
+  preparationTime: 3600000
 }
