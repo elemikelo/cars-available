@@ -1,4 +1,5 @@
 Calcular disponibilidad de alquieres de coches según dos fechas dadas (Fecha de Inicio, Fecha de Finalizacion).
+Pero teniendo en cuenta cuantos coches alquilados se van a usar, es decir, se puede usar un mismo coche para distintos alquileres simepre y cuando las fechas no se pisen.
 
 ## How to start
 
@@ -22,7 +23,7 @@ $ npm install
 3) Run scripts 'Install_db' for add users and advertisements. (Note: Run Mongo DB previously):
 
 ```
-$ node node ./MongoConnect/installDB.js
+$ node ./MongoConnect/installDB.js
 ```
 
 
