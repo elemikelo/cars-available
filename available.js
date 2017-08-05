@@ -1,24 +1,24 @@
 //const mongoose = require('mongoose');
 //const RentedCar = mongoose.model('RentedCar', schema);
-const data = require('./data')
-
-const inputRent = {
-  start: '06/19/2017 16:00',
-  end: '06/21/2017 16:00'
-}
-
+const data = require('./data');
 
 function seeAvailability(n, array, input) {
-  let arrayConverted = array.map(rent => { return { start: new Date(rent.start).getTime(), end: new Date(rent.end).getTime() } })
+  let arrayConverted = array.map(rent => { return { start: new Date(rent.start).getTime(), end: (new Date(rent.end).getTime() + 3600000) } })
 
   let carsAvailable = arrayConverted.map(dateIndex => {
-
-    if (compareRanges(input, dateIndex)) { n-- }
+    if (compareRanges(input, dateIndex)) {
+      n--;
+    }
   });
 
-  if (n !== 0) { return true }
+  if (n !== 0) {
+    console.log('Cars available: ', n + (sameCarRented(arrayConverted)))
+    return true;
+  }
 
-  else { return false, n }
+  else {
+    return false
+  }
 }
 
 function addRent(input, array) {
@@ -55,5 +55,17 @@ function compareRanges(rangeOne, rangeTwo) {
   }
 }
 
-createRent(inputRentConverted(inputRent), data.rentedCars, data.cars)
+function sameCarRented(array) {
+  let n = 0;
+  let map = array.map((date) => {
+    for (x in array) {
+      if (date.end <= array[x].start) {
+        n++;
+      }
+    }
+  })
+  return n;
+}
 
+
+createRent(inputRentConverted(data.inputRent), data.rentedCars, data.cars);
