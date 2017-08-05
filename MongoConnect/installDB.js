@@ -1,7 +1,7 @@
 require('./connect');
-const RentedCar = require('./model');
+const RentedCar = require('./schema');
 const fs = require('fs');
-
+const path = './MongoConnect/rentals.json';
 
 function readFile(path) {
   return new Promise((resolve, reject) => {
@@ -32,7 +32,7 @@ function insertMongo(json) {
 }
 
 Promise.all([RentedCar.deleteMany()])
-  .then(() => readFile('./rentals.json'))
+  .then(() => readFile(path))
   .then(jsonBuffer)
   .then(insertMongo)
   .catch(err => console.log(`Hubo un error: ${err}`))

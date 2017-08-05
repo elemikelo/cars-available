@@ -1,18 +1,17 @@
 {
   "name": "cars-available",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node available.js"
+    "start": "node available.js",
+    "installDB": "node ./MongoConnect/installDB.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/elemikelo/cars-avalaible-app.git"
   },
-  "author": "Luis Miguel Alvarez Maidero",
-  "license": "MIT",
+  "author": "Luis Miguel elemikelo@gmail.com",
+  "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/elemikelo/cars-avalaible-app/issues"
   },

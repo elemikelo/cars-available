@@ -1,5 +1,4 @@
-Calcular disponibilidad de alquieres de coches según dos fechas dadas (Fecha de Inicio, Fecha de Finalizacion).
-Pero teniendo en cuenta cuantos coches alquilados se van a usar, es decir, se puede usar un mismo coche para distintos alquileres simepre y cuando las fechas no se pisen.
+Calculate availability of cars according to two dates given (Start Date, End Date). But considering how many rented cars are going to be used, that is, you can use the same car for different rents always and when the dates dont overlap.
 
 ## How to start
 
@@ -23,7 +22,7 @@ $ npm install
 3) Run scripts 'Install_db' for add users and advertisements. (Note: Run Mongo DB previously):
 
 ```
-$ node ./MongoConnect/installDB.js
+$ npm run installDB 
 ```
 
 
@@ -31,3 +30,37 @@ $ node ./MongoConnect/installDB.js
 ```
 $ npm start
 ```
+
+## Example
+
+Cars stock = 10 🚕 🚗 🚙 🚙 🚕 🚕 🚗 🚗 🚗 🚙
+
+Date cars rented: 📆 ✅
+```
+    STARTS DATE           ENDS DATE
+['06/20/2017 16:00', '06/24/2017 16:00'],
+['06/20/2017 16:00', '06/30/2017 16:00'],
+['06/22/2017 16:00', '06/26/2017 16:00'],
+['06/24/2017 16:01', '06/29/2017 16:00'],
+['06/24/2017 17:00', '06/30/2017 16:00']
+```
+
+Input date solicited by client:
+```
+    START DATE            END DATE
+['06/19/2017 16:00','06/30/2017 16:00']
+
+```
+
+Return :
+
+```
+Cars available: 6 
+Reserved Car, thanks
+
+```
+
+
+
+
+
