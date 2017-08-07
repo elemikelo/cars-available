@@ -6,7 +6,7 @@ function seeAvailability(numberTotalCars, arrayCarsDates, input) {
 
   var sameCarUsed = 0;
   var carsAvailable = 0;
-  var num = 0;
+  var carsDifferent = 0;
 
   /*  See if don't exist rentals */
   if (arrayCarsDates.length === 0) {
@@ -24,15 +24,6 @@ function seeAvailability(numberTotalCars, arrayCarsDates, input) {
     }
   });
 
-  /* Copy array and order by the end of dates to see if the date of entry 
-  is greater than the final rental date */
-  let copyArray = newArrayCarsDates.map(dates => dates);
-  let orderByDatesEnd = copyArray.sort((a, b) => a.end + b.end);
-  if (orderByDatesEnd[0].end < input.start) {
-    console.log(`Cars Available ${numberTotalCars} 😎 `);
-    return true;
-  }
-
   /* Sorts rentals by start dates to calculate */
   newArrayCarsDates.sort((a, b) => a.start - b.start);
   if (newArrayCarsDates[0].start > input.end) {
@@ -43,12 +34,17 @@ function seeAvailability(numberTotalCars, arrayCarsDates, input) {
   /* Returns a new filtered array for rents contained of the date input */
   let filterRents = newArrayCarsDates.filter(date => {
     if (compareIntervals(input, date)) {
+      console.log(new Date(date.start).getDate(), new Date(date.end).getDate(), )
       return date;
+    }
+    else {
+      carsDifferent++;
     }
   });
 
   if (filterRents.length == 0) {
-    filterRents = newArrayCarsDates;
+    console.log(`Cars Available ${numberTotalCars} 😎 `);
+    return true;
   }
 
   /* Calculate how many same cars are used for different  rents in the total  rentals array */
@@ -60,16 +56,7 @@ function seeAvailability(numberTotalCars, arrayCarsDates, input) {
     return a;
   });
 
-  carsAvailable = (numberTotalCars - filterRents.length) + sameCarUsed;
-
-  // Compare input with the number of cars in stock
-  let calculateStockCars = newArrayCarsDates.map(date => {
-    if (!compareIntervals(input, date)) {
-      num++;
-    }
-  });
-
-  carsAvailable = carsAvailable + num;
+  carsAvailable = filterRents.length + sameCarUsed + carsDifferent;
 
   if (carsAvailable > 1) {
     console.log(`Cars Available ${carsAvailable} 🤘🏽 😎 🤘🏽 `)
