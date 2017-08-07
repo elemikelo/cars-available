@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "node available.js",
+    "start": "node index.js",
     "installDB": "node ./MongoConnect/installDB.js"
   },
   "repository": {
