@@ -34,7 +34,6 @@ function seeAvailability(numberTotalCars, arrayCarsDates, input) {
   /* Returns a new filtered array for rents contained of the date input */
   let filterRents = newArrayCarsDates.filter(date => {
     if (compareIntervals(input, date)) {
-      console.log(new Date(date.start).getDate(), new Date(date.end).getDate(), )
       return date;
     }
     else {
@@ -48,7 +47,7 @@ function seeAvailability(numberTotalCars, arrayCarsDates, input) {
   }
 
   /* Calculate how many same cars are used for different  rents in the total  rentals array */
-  let calculateSameCars = filterRents.reduce((a, b) => {
+  let calculateSameCars = newArrayCarsDates.reduce((a, b) => {
     if (!compareIntervals(a, b)) {
       sameCarUsed += 1;
       return b;
