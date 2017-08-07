@@ -6,6 +6,7 @@ function seeAvailability(numberTotalCars, arrayCarsDates, input) {
 
   var sameCarUsed = 0;
   var carsAvailable = 0;
+  var num = 0;
 
   /*  See if don't exist rentals */
   if (arrayCarsDates.length === 0) {
@@ -56,15 +57,17 @@ function seeAvailability(numberTotalCars, arrayCarsDates, input) {
     return a;
   });
 
+
   carsAvailable = (numberTotalCars - filterRents.length) + sameCarUsed;
 
   // Compare input with the number of cars in stock
-
   let calculateStockCars = newArrayCarsDates.map(date => {
     if (!compareIntervals(input, date)) {
-      carsAvailable--;
+      num++;
     }
   });
+
+  carsAvailable = carsAvailable + num;
 
   if (carsAvailable > 1) {
     console.log(`Cars Available ${carsAvailable} 🤘🏽 😎 🤘🏽 `)
