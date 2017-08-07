@@ -35,6 +35,10 @@ function seeAvailability(numberTotalCars, arrayCarsDates, input) {
 
   /* Sorts rentals by start dates to calculate */
   newArrayCarsDates.sort((a, b) => a.start - b.start);
+  if (newArrayCarsDates[0].start > input.end) {
+    console.log(`Cars Available ${numberTotalCars} 😎 `);
+    return true;
+  }
 
   /* Returns a new filtered array for rents contained of the date input */
   let filterRents = newArrayCarsDates.filter(date => {
