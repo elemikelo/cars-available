@@ -78,12 +78,9 @@ function addRental(input) {
     start: input.start,
     end: input.end
   });
-
   // save 
   newRental.save(function (err) {
     if (err) throw err;
-
-    console.log('Rentals saved in Mongo');
   });
 
 }
