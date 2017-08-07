@@ -8,7 +8,7 @@ function availability(numberTotalCars, arrayCarsDates, input) {
   var carsAvailable = 0;
 
   // Don't exist rentals
-  if (arrayCarsDates.lenght === 0) {
+  if (arrayCarsDates.length === 0) {
     console.log(`Cars Available ${numberTotalCars} 😎 `);
     return true;
   }
