@@ -1,4 +1,5 @@
 "use strict";
+
 const data = require('./data');
 
 function availability(numberTotalCars, arrayCarsDates, input) {
@@ -6,13 +7,13 @@ function availability(numberTotalCars, arrayCarsDates, input) {
   var sameCarUsed = 0;
   var carsAvailable = 0;
 
-  // don't exist rentals
+  // Don't exist rentals
   if (arrayCarsDates.lenght === 0) {
     console.log(`Cars Available ${numberTotalCars} 😎 `);
     return true;
   }
 
-  // string elements to number **  preparation time = 1h = 3600000
+  // String elements to number **  preparation time = 1h = 3600000
   let newArrayCarsDates = arrayCarsDates.map(date => {
     return {
       start: new Date(date.start).getTime(),
@@ -20,18 +21,18 @@ function availability(numberTotalCars, arrayCarsDates, input) {
     }
   });
 
-  // sort array by start dates
+  // Sort array by start dates
   newArrayCarsDates.sort(function (a, b) { return a.start - b.start });
 
-  // Filter rents array with input 
+  // Return array rentals with input  
   let filterRents = newArrayCarsDates.filter(date => {
     if (date.start >= input.start && (date.end - data.preparationTime) <= input.end) {
       return date;
     }
   });
 
-  // see if used the same car for rents differents
-  let viewCarUsed = filterRents.reduce((a, b) => {
+  // Calculates how many cars you need for existing rentals
+  let calculeCarUsed = filterRents.reduce((a, b) => {
     if (!compareRangesDates(a, b)) {
       sameCarUsed += 1;
       return b;
@@ -39,15 +40,14 @@ function availability(numberTotalCars, arrayCarsDates, input) {
     return a;
   });
 
-  // Compare input with cars stock
-  let arrayReservedDates = newArrayCarsDates.map(dateIndex => {
-    if (compareRangesDates(input, dateIndex)) {
+  carsAvailable = (numberTotalCars - filterRents.length) + sameCarUsed;
+
+  // Compare input with the number of cars in stock
+  let arrayReservedDates = newArrayCarsDates.map(date => {
+    if (!compareRangesDates(input, date)) {
       carsAvailable--;
     }
   });
-
-  carsAvailable = (numberTotalCars - filterRents.length) + sameCarUsed;
-
 
   if (carsAvailable > 1) {
     console.log(`Cars Available ${carsAvailable} 🤘🏽 😎 🤘🏽 `)
@@ -58,14 +58,13 @@ function availability(numberTotalCars, arrayCarsDates, input) {
   }
 }
 
-
-function addRent(input, arrayCarsDates) {
+function addRental(input, arrayCarsDates) {
 
   return arrayCarsDates.concat(input)
 
 }
 
-function inputRentConverted(input) {
+function inputDatesConverted(input) {
   return { start: new Date(input.start).getTime(), end: new Date(input.end).getTime() }
 }
 
@@ -88,7 +87,7 @@ function createRent(input, arrayCarsDates, numberTotalCars) {
 
   if (availability(numberTotalCars, arrayCarsDates, input)) {
 
-    addRent(input, arrayCarsDates);
+    addRental(input, arrayCarsDates);
 
     return console.log(`Reserved Car, thanks 😘  `);
   }
@@ -97,6 +96,5 @@ function createRent(input, arrayCarsDates, numberTotalCars) {
   }
 }
 
-
-createRent(inputRentConverted(data.inputRent), data.rentedCars, data.cars);
+createRent(inputDatesConverted(data.inputRent), data.rentedCars, data.cars);
 
